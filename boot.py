@@ -40,13 +40,16 @@ def LED(t = 0.05,epoch = 10):
         led.off()
         time.sleep(t)
 
+def printWIFI(ip_address,screen):
+    if ip_address == False:
+        screen.show("Wifi:         No",fill=True)
+    else:
+        screen.show("Wifi:         OK",fill=True)
+        screen.show(ip_address,x=0,y=10)
+
 LED(0.05,10)
 ip_address = connectWIFI()
 screen = OLED()
-if ip_address == False:
-    screen.show("Wifi:         No",fill=True)
-else:
-    screen.show("Wifi:         OK",fill=True)
-    screen.show(ip_address,x=0,y=10)
+printWIFI(ip_address,screen)
 
 gc.collect()
