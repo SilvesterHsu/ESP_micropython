@@ -11,7 +11,7 @@ def Voltage(i2c,oled,t=50):
             oled.text("Voltage_{:}:  {:.3}v".format(i,v[i]),x=0,y=i*10)
         oled.show()
     oled.fill()
-    oled.WIFI(wifi)
+    oled.showWIFI(wifi)
     oled.show()
 '''
 # Test Voltage   

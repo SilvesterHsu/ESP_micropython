@@ -58,7 +58,7 @@ wifi.initialWeb()
 i2c_oled = I2C(-1, scl=Pin(4), sda=Pin(5),freq=115200)
 oled = OLED(i2c_oled)
 oled.fill()
-oled.WIFI(wifi)
+oled.showWIFI(wifi)
 oled.show()
 # collect trash
 gc.collect()

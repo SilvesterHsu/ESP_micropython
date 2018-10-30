@@ -33,7 +33,7 @@ class OLED:
     def show(self):
         self._screen.blit(self._buf, 0, 0)
         self._screen.show()
-    def WIFI(self,wifi):
+    def showWIFI(self,wifi):
         if wifi.net == True:
             self.text("Wifi:         OK",x=0,y=0)
             self.text(wifi.addr[0],x=0,y=10)
@@ -43,5 +43,5 @@ class OLED:
                 self.text("Web:          NO",x=0,y=20)
         else:
             self.text("Wifi:         NO",x=0,y=0)
-    def Voltage(self,v):
+    def showVoltage(self,v):
         self.text("Voltage:    {:.3}v".format(v),x=0,y=40)
