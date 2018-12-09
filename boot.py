@@ -37,7 +37,7 @@ class WIFI:
         import time
         self._wlan.active(True)
         self._wlan.connect(SSID,passwd)
-        time.sleep(1.5)
+        time.sleep(2)
         self.net = True if self._wlan.isconnected() == True else False
         self._address()
     def initialWeb(self):
@@ -55,10 +55,13 @@ wifi = WIFI()
 wifi.connect()
 wifi.initialWeb()
 # turn on oled module
-i2c_oled = I2C(-1, scl=Pin(4), sda=Pin(5),freq=115200)
-oled = OLED(i2c_oled)
-oled.fill()
-oled.showWIFI(wifi)
-oled.show()
+try:
+    i2c_oled = I2C(-1, scl=Pin(4), sda=Pin(5),freq=115200)
+    oled = OLED(i2c_oled)
+    oled.fill()
+    oled.showWIFI(wifi)
+    oled.show()
+except:
+    pass
 # collect trash
 gc.collect()
