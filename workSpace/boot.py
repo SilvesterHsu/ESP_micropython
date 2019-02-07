@@ -10,32 +10,23 @@ def lightup(end=False):
     if end == True:
       led.off()
 
-class WIFI:
-  def __init__(self,SSID,passwd):
+def do_connect():
     import network
-    self._wlan = network.WLAN(network.STA_IF)
-    ap_if = network.WLAN(network.AP_IF)
-    ap_if.active(False)
-    self.SSID = SSID
-    self.passwd = passwd
-  
-  def connect(self):
-    self._wlan.active(True)
-    while not self._wlan.isconnected():
-      self._wlan.connect(self.SSID,self.passwd)
-      time.sleep(1)
-    '''
-    if web:
-      import webrepl
-      webrepl.start()'''
+    wlan = network.WLAN(network.STA_IF)
+    wlan.active(True)
+    if not wlan.isconnected():
+        print('connecting to network...')
+        wlan.connect('Live-lot', 'live941003')
+        while not wlan.isconnected():
+            pass
+    print('network config:', wlan.ifconfig())
     for i in range(5):
       lightup(False)
       time.sleep(0.2)
-        
-wifi = WIFI('Live-A-C','live941003')
-wifi.connect()
-print(wifi._wlan.ifconfig())
+do_connect()
 gc.collect()
+
+
 
 
 
