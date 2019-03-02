@@ -46,15 +46,18 @@ def my_read_handler():
 
 while True:
     try:
-      if need_connect = True:
+      if need_connect == True:
         wifi_connect()
         blynk = blynk_connect()
+        need_connect = False
       blynk.run()
       my_read_handler()
     except OSError:
+      print("OSError: wifi timeout")
       need_connect = True
-      print("OSError")
+    except ValueError:
+      print("ValueError: server timeout")
+      need_connect = True
+      time.sleep(25)
     machine.idle()
-
-
 
