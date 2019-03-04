@@ -1,5 +1,23 @@
 import BlynkLib,network,machine,time
-import dht
+
+def get_dht():
+  import dht
+  d = dht.DHT11(machine.Pin(5))
+  d.measure()
+  temp = d.temperature() # eg. 23
+  humi = d.humidity()    # eg. 41
+  return temp,humi
+
+def get_ds18x20():
+  import onewire
+  ow = onewire.OneWire(machine.Pin(4))
+  import time, ds18x20
+  ds = ds18x20.DS18X20(ow)
+  roms = ds.scan()
+  ds.convert_temp()
+  time.sleep_ms(750)
+  temp = ds.read_temp(roms[-1])
+  return temp
 
 def wifi_connect():
   WIFI_SSID = 'Live-lot'
@@ -24,11 +42,11 @@ def blynk_connect():
   def blynk_connected(ping):
       print('Blynk ready. Ping:', ping, 'ms')
   return blynk
-  
+ 
+ 
 wifi = wifi_connect()
 blynk = blynk_connect() 
 server_reconnect = False
-d = dht.DHT11(machine.Pin(5))
 
 @blynk.VIRTUAL_WRITE(1)
 def v3_write_handler(value):
@@ -37,9 +55,8 @@ def v3_write_handler(value):
 @blynk.VIRTUAL_READ(3)
 @blynk.VIRTUAL_READ(4)
 def my_read_handler():
-    d.measure()
-    temp = d.temperature() # eg. 23
-    humi = d.humidity()    # eg. 41
+    temp = get_ds18x20()
+    _,humi = get_dht()
     timer = int(time.time())
     blynk.virtual_write(2, timer)
     blynk.virtual_write(3, temp)
@@ -62,5 +79,6 @@ while True:
     print("ValueError: server timeout")
     server_reconnect = True
   machine.idle()
+
 
 
