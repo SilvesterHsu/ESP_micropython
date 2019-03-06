@@ -13,9 +13,14 @@ def get_ds18x20():
   ow = onewire.OneWire(machine.Pin(4))
   import time, ds18x20
   ds = ds18x20.DS18X20(ow)
-  roms = ds.scan()
-  ds.convert_temp()
+  while True:
+    roms = ds.scan()
+    if len(roms)>0:
+      break
+    else:
+      time.sleep_ms(200)
   time.sleep_ms(750)
+  ds.convert_temp()
   temp = ds.read_temp(roms[-1])
   return temp
 
@@ -74,11 +79,15 @@ while True:
     my_read_handler()
   except OSError:
     print("OSError: wifi timeout")
+    time.sleep(5)
     server_reconnect = True
   except ValueError:
     print("ValueError: server timeout")
+    time.sleep(5)
     server_reconnect = True
+  time.sleep(5)
   machine.idle()
+
 
 
 

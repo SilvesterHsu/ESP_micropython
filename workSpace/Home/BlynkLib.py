@@ -219,7 +219,7 @@ import socket
 
 class Blynk(BlynkProtocol):
     def __init__(self, auth, **kwargs):
-        self.server = kwargs.pop('server', 'www.seel.ink')
+        self.server = kwargs.pop('server', '185.186.146.243')
         self.port = kwargs.pop('port', 9442)
         BlynkProtocol.__init__(self, auth, **kwargs)
 
@@ -250,4 +250,5 @@ class Blynk(BlynkProtocol):
         except: # TODO: handle disconnect
             pass
         self.process(data)
+
 
