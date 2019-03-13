@@ -6,7 +6,7 @@ def set_light(pin=4,aim=50,now=0):
   for i in range(1,int(abs(aim-now)*2)+1):
     pt = now + i/2 if aim>now else now-i/2
     print(pt)
-    PWM(Pin(pin), freq=1000, duty=int(1023*(pt)/100))
+    PWM(Pin(pin), freq=1000, duty=int(1023*(100-pt)/100))
     time.sleep(0.005)
 rec = {}
 try:
@@ -86,7 +86,6 @@ def my_read_handler():
 
 
 while True:
-  '''
   try:
     blynk.run()
     my_read_handler()
@@ -95,9 +94,7 @@ while True:
     machine.reset()
   except ValueError as e:
     print(e)
-    machine.reset()'''
-  blynk.run()
-  my_read_handler()
+    machine.reset()
   gc.collect()
   machine.idle()
 
