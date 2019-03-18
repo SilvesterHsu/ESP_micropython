@@ -228,7 +228,7 @@ class Blynk(BlynkProtocol):
             self.conn = socket.socket()
             self.conn.connect(socket.getaddrinfo(self.server, self.port)[0][4])
             try:
-                self.conn.settimeout(eval('1'))
+                self.conn.settimeout(eval('0.8'))
             except:
                 self.conn.settimeout(0)
             BlynkProtocol.connect(self)
@@ -250,6 +250,7 @@ class Blynk(BlynkProtocol):
         except: # TODO: handle disconnect
             pass
         self.process(data)
+
 
 
 
