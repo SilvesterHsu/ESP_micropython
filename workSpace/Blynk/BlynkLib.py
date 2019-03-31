@@ -219,7 +219,7 @@ import socket
 
 class Blynk(BlynkProtocol):
     def __init__(self, auth, **kwargs):
-        self.server = kwargs.pop('server', 'www.seel.ink')
+        self.server = kwargs.pop('server', '185.186.146.243')
         self.port = kwargs.pop('port', 9442)
         BlynkProtocol.__init__(self, auth, **kwargs)
 
@@ -228,7 +228,7 @@ class Blynk(BlynkProtocol):
             self.conn = socket.socket()
             self.conn.connect(socket.getaddrinfo(self.server, self.port)[0][4])
             try:
-                self.conn.settimeout(eval('0.5'))
+                self.conn.settimeout(eval('0.05'))
             except:
                 self.conn.settimeout(0)
             BlynkProtocol.connect(self)

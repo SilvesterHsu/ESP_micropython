@@ -26,7 +26,7 @@ class light():
       f.write(js)
   def _light_up(self):
     for i in self.Pin:
-      PWM(Pin(self.Pin[i]), freq=1000, duty=int(1023*(100-self.cur[i])/100))
+      PWM(Pin(self.Pin[i]), freq=800, duty=int(1023*(100-self.cur[i])/100))
   def _smooth(self,step=1,stime=0.005):
     tar = {'4':0,'5':0}
     for i in self.Pin:
@@ -47,6 +47,9 @@ class light():
     self.lum[pin] = rate
 
     self._smooth()
+
+
+
 
 
 

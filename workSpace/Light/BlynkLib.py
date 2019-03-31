@@ -228,7 +228,7 @@ class Blynk(BlynkProtocol):
             self.conn = socket.socket()
             self.conn.connect(socket.getaddrinfo(self.server, self.port)[0][4])
             try:
-                self.conn.settimeout(eval('0.8'))
+                self.conn.settimeout(0.8)
             except:
                 self.conn.settimeout(0)
             BlynkProtocol.connect(self)
@@ -237,7 +237,11 @@ class Blynk(BlynkProtocol):
 
     def _write(self, data):
         #print('<', data.hex())
-        self.conn.send(data)
+        try:
+          self.conn.send(data)
+        except:
+          print("Send disconnect")
+          raise OSError('Connection Fail')
         # TODO: handle disconnect
 
     def run(self):
@@ -250,6 +254,9 @@ class Blynk(BlynkProtocol):
         except: # TODO: handle disconnect
             pass
         self.process(data)
+
+
+
 
 
 

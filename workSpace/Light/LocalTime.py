@@ -1,5 +1,5 @@
 from ntptime import settime
-import utime
+import utime,machine
 
 class Timer:
   def __init__(self,try_time=3):
@@ -8,7 +8,7 @@ class Timer:
     reset = 0
     while True:
       try:
-        print("Setting time from network...")
+        print("Setting time...")
         settime()
         break
       except:
@@ -28,6 +28,8 @@ class Timer:
     timer = list(map(ctime,[month, mday, hour, minute, second]))
     timer = "Time:   {}-{}  {}:{}:{}".format(*timer)
     return timer
+
+
 
 
 
